@@ -23,7 +23,7 @@ class ProductFactory extends Factory
     {
         return [
             'sku' => $this->faker->unique()->numerify('00000#'),
-            'name' => $this->faker->word(),
+            'name' => $this->faker->words(3,true),
             'category_id' => Category::all()->random()->id,
             'price' => $this->faker->numberBetween(10000, 99999),
         ];
