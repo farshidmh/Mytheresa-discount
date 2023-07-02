@@ -14,6 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\Product::factory(10)->create();
+
+        $this->call([
+             CategorySeeder::class,
+        ]);
+
+
+
+       // \App\Models\Product::factory(10)->create();
     }
 }
