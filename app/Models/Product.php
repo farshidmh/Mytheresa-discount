@@ -21,4 +21,9 @@ class Product extends Model
         'price'
     ];
 
+    public function category()
+    {
+        return $this->hasOne(Category::class);
+    }
+
 }
