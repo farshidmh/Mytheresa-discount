@@ -16,7 +16,11 @@ return new class extends Migration {
             $table->id();
             $table->string('sku')->unique();
             $table->string('name');
-            $table->string('category');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');
             $table->integer('price');
             $table->timestamps();
         });
