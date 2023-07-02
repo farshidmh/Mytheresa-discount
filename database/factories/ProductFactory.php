@@ -2,11 +2,12 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ * @extends Factory<Product>
  */
 class ProductFactory extends Factory
 {
@@ -21,9 +22,9 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'sku' => $this->faker->unique()->numerify('#'),
+            'sku' => $this->faker->unique()->numerify('00000#'),
             'name' => $this->faker->word(),
-            'category' => $this->faker->randomElement(['boots', 'sandals', 'sneakers']),
+            'category_id' => Category::all()->random()->id,
             'price' => $this->faker->numberBetween(10000, 99999),
         ];
     }
