@@ -8,12 +8,14 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface ProductRepositoryInterface
 {
 
-    public function find(int $id): ?Product;
-
     public function findBySKU(string $sku): ?Product;
 
     public function create(array $data): Product;
 
-    public function paginate(int $perPage = 15): LengthAwarePaginator;
+    public function all(int $perPage = 5): LengthAwarePaginator;
+
+    public function getProductsByCategoryName(string $categoryName, int $perPage = 5): LengthAwarePaginator;
+
+    public function getProductsByPriceLessThan(int $price, int $perPage = 5): LengthAwarePaginator;
 
 }
