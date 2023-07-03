@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Traits;
 
 use Illuminate\Http\JsonResponse;
 
@@ -10,7 +10,8 @@ trait APIResponseHelper
      * success response method.
      *
      * @param $result
-     * @param $message
+     * @param null $message
+     * @param int $code
      * @return JsonResponse
      */
     public function successResponse($result, $message = null, $code = 200): JsonResponse

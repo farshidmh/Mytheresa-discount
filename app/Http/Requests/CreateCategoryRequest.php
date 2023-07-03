@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Controllers\APIResponseHelper;
-use Illuminate\Foundation\Http\FormRequest;
+use App\Traits\APIResponseHelper;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\ValidationException;
 
 
