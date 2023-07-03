@@ -21,6 +21,11 @@ class Category extends Model
         'name'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at'
+    ];
+
     public function products()
     {
         return $this->belongsToMany(Product::class);
