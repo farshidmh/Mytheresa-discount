@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'v1'], function () {
 
     Route::group(['prefix' => 'categories', 'controller' => CategoryController::class], function () {
-        Route::get('/', 'index');
-        Route::post('/', 'store');
+        Route::get('/', 'index')->name('categories.index');
+        Route::post('/', 'store')->name('categories.store');
     });
 
     Route::group(['prefix' => 'products', 'controller' => ProductController::class], function () {
