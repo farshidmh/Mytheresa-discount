@@ -4,9 +4,9 @@ namespace App\Actions\Product;
 
 use App\Models\Product;
 use App\Repositories\Interface\CategoryRepositoryInterface;
+use App\Rules\ProductRules;
 use Exception;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 /**
  * Class CreateProductAction
@@ -32,14 +32,14 @@ class CreateProductAction
      * @param string $categoryName
      * @param float $price
      * @return Product|null
-     * @throws ValidationException If validation fails.
+     * @throws Exception If validation fails.
      */
     public function execute(string $sku, string $name, string $categoryName, float $price): ?Product
     {
 
         $validator = Validator::make(
-            ['sku' => $sku, 'name' => $name, 'categoryName' => $categoryName, 'price' => $price],
-            ['sku' => 'required|string|min:1', 'name' => 'required|string|min:1', 'categoryName' => 'required|exists:categories,name', 'price' => 'required|numeric|min:1']
+            ['sku' => $sku, 'name' => $name, 'category_name' => $categoryName, 'price' => $price],
+            ProductRules::PRODUCT_CREATE_RULE
         );
 
         if ($validator->fails()) {

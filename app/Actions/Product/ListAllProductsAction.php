@@ -4,6 +4,8 @@ namespace App\Actions\Product;
 
 use App\Repositories\Interface\ProductRepositoryInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Validator;
+use PHPUnit\Util\Exception;
 
 /**
  * Class ListAllProductsAction
@@ -35,6 +37,16 @@ class ListAllProductsAction
      */
     public function execute(int $perPage = 5): LengthAwarePaginator
     {
+
+        $validator = Validator::make(
+            ['perPage' => $perPage],
+            ['perPage' => 'integer|min:1']
+        );
+
+        if ($validator->fails()) {
+            throw new Exception($validator->messages());
+        }
+
         return $this->formatProductsResultAction->execute(
             $this->productRepository->all($perPage)
         );

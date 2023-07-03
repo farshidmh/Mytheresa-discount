@@ -3,6 +3,7 @@
 namespace App\Actions\Product;
 
 use App\Repositories\Interface\ProductRepositoryInterface;
+use App\Rules\ProductRules;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use PHPUnit\Util\Exception;
@@ -42,7 +43,7 @@ class ListProductsByCategoryNameAction
 
         $validator = Validator::make(
             ['categoryName' => $categoryName, 'perPage' => $perPage],
-            ['categoryName' => 'required|exists:categories,name', 'perPage' => 'integer|min:1']
+            ProductRules::PRODUCT_LIST_BY_CATEGORY_RULE
         );
 
         if ($validator->fails()) {

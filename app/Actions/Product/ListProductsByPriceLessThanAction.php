@@ -3,6 +3,7 @@
 namespace App\Actions\Product;
 
 use App\Repositories\Interface\ProductRepositoryInterface;
+use App\Rules\ProductRules;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use PHPUnit\Util\Exception;
@@ -43,7 +44,7 @@ class ListProductsByPriceLessThanAction
 
         $validator = Validator::make(
             ['price' => $price, 'perPage' => $perPage],
-            ['price' => 'required|integer|min:1', 'perPage' => 'integer|min:1']
+            ProductRules::PRODUCT_LIST_BY_PRICE_LESS_THAN_RULE
         );
 
         if ($validator->fails()) {
