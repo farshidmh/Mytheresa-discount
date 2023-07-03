@@ -7,16 +7,18 @@ use Illuminate\Support\Facades\Validator;
 
 class CreateCategoryAction
 {
-    protected $categoryRepository;
+    protected CategoryRepositoryInterface $categoryRepository;
 
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function execute(array $data)
+    public function execute($name)
     {
-        $validator = Validator::make($data, [
+        $validator = Validator::make(
+            ['name' => $name]
+            , [
             'name' => 'required|string|unique:categories,name'
         ]);
 
@@ -24,6 +26,6 @@ class CreateCategoryAction
             return $validator->errors();
         }
 
-        return $this->categoryRepository->create($data);
+        return $this->categoryRepository->create(['name' => $name]);
     }
 }
