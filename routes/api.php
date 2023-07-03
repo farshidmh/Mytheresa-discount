@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\api\v1\CategoryController;
+use App\Http\Controllers\api\v1\DiscountController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,14 @@ Route::group(['prefix' => 'v1'], function () {
         Route::get('/', 'getCategories');
         Route::post('/new', 'newCategory');
 
+    });
+
+    Route::group(['prefix' => 'discounts', 'controller' => DiscountController::class], function () {
+        Route::get('/', 'index');
+        Route::group(['prefix' => 'new'], function () {
+            Route::post('/sku', 'storeByProduct');
+            Route::post('/category', 'storeByCategory');
+        });
     });
 
 
