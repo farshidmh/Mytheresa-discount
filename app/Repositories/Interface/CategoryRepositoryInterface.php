@@ -13,6 +13,6 @@ interface CategoryRepositoryInterface
 
     public function create(array $data): Category;
 
-    public function delete($id);
+    public function findByName(string $name): ?Category;
 
 }

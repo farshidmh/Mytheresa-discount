@@ -27,13 +27,8 @@ class CategoryRepository implements CategoryRepositoryInterface
         return Category::create($data);
     }
 
-    public function delete($id)
+    public function findByName(string $name): ?Category
     {
-        $category = Category::find($id);
-        if ($category) {
-            $category->delete();
-            return true;
-        }
-        return false;
+        return Category::where('name', $name)->firstOrFail();
     }
 }

@@ -2,10 +2,12 @@
 
 namespace app\Http\Controllers\api\v1;
 
+use App\Actions\Product\CreateProductAction;
 use App\Actions\Product\ListAllProductsAction;
 use App\Actions\Product\ListProductsByCategoryNameAction;
 use App\Actions\Product\ListProductsByPriceLessThanAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewProductFormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
@@ -83,6 +85,31 @@ class ProductController extends Controller
         $products = $byPriceLessThanAction->execute($price, self::PER_PAGE);
         return $this->successResponse($products, 'Products retrieved successfully.');
 
+    }
+
+    /**
+     * Handles request to create a new product .
+     *
+     * @param NewProductFormRequest $request
+     * @param CreateProductAction $createProductAction
+     * @return JsonResponse
+     */
+    public function store(
+        NewProductFormRequest $request,
+        CreateProductAction   $createProductAction)
+    {
+        $product = $createProductAction->execute(
+            $request->get('sku'),
+            $request->get('name'),
+            $request->get('category_name'),
+            $request->get('price')
+        );
+
+        return $this->successResponse(
+            ['product' => $product],
+            'Product created successfully.',
+            201
+        );
     }
 
 
