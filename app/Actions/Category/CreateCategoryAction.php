@@ -18,7 +18,7 @@ use Illuminate\Validation\ValidationException;
  */
 class CreateCategoryAction
 {
-    protected CategoryRepositoryInterface $categoryRepository;
+    private CategoryRepositoryInterface $categoryRepository;
 
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {

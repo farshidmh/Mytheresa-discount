@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
  */
 class ListCategoriesAction
 {
-    protected CategoryRepositoryInterface $categoryRepository;
+    private CategoryRepositoryInterface $categoryRepository;
 
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
