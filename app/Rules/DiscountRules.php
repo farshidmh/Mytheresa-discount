@@ -11,7 +11,7 @@ class DiscountRules
 
     public const CATEGORY_CREATE_RULE = [
         'percentage' => 'required|numeric|min:0|max:100',
-        'category_id' => 'required|exists:categories,id',
+        'category_name' => 'required|exists:categories,name',
     ];
 
 

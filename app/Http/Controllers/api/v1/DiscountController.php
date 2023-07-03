@@ -83,7 +83,7 @@ class DiscountController extends Controller
     )
     {
         try {
-            $discount = $createCategoryDiscountAction->execute($request->get('category_id'), $request->get('percentage'));
+            $discount = $createCategoryDiscountAction->execute($request->get('category_name'), $request->get('percentage'));
             return $this->successResponse(
                 ['discount' => $discount],
                 'Discount created successfully',

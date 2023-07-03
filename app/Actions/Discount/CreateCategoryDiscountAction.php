@@ -37,17 +37,17 @@ class CreateCategoryDiscountAction
     /**
      * Executes the action to create a new discount a category and returns it.
      *
-     * @param int $categoryID The ID of the category the discount applies to.
+     * @param string $categoryName The ID of the category the discount applies to.
      * @param string $percentage The percentage of the discount.
      * @return Discount The newly created discount.
      * @throws Exception If the creation of the new discount fails.
      * @version 1.0.0
      */
-    public function execute(int $categoryID, string $percentage): Discount
+    public function execute(string $categoryName, string $percentage): Discount
     {
 
         $validator = Validator::make(
-            ['category_id' => $categoryID, 'percentage' => $percentage],
+            ['category_name' => $categoryName, 'percentage' => $percentage],
             DiscountRules::CATEGORY_CREATE_RULE
         );
 
@@ -56,7 +56,7 @@ class CreateCategoryDiscountAction
         }
 
         try {
-            return $this->categoryRepository->find($categoryID)->discounts()->firstOrCreate([
+            return $this->categoryRepository->findByName($categoryName)->discounts()->firstOrCreate([
                 'percentage' => $percentage,
             ]);
         } catch (Exception $e) {
