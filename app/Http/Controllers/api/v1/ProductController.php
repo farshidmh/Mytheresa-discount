@@ -8,6 +8,7 @@ use App\Actions\Product\ListProductsByCategoryNameAction;
 use App\Actions\Product\ListProductsByPriceLessThanAction;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewProductFormRequest;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Validator;
 
@@ -93,6 +94,7 @@ class ProductController extends Controller
      * @param NewProductFormRequest $request
      * @param CreateProductAction $createProductAction
      * @return JsonResponse
+     * @throws Exception
      */
     public function store(
         NewProductFormRequest $request,
