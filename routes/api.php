@@ -20,11 +20,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'v1'], function () {
 
-    Route::group(['prefix' => 'category', 'controller' => CategoryController::class], function () {
-
-        Route::get('/', 'getCategories');
-        Route::post('/new', 'newCategory');
-
+    Route::group(['prefix' => 'categories', 'controller' => CategoryController::class], function () {
+        Route::get('/', 'index');
+        Route::post('/', 'store');
     });
 
     Route::group(['prefix' => 'discounts', 'controller' => DiscountController::class], function () {
