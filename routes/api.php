@@ -34,10 +34,10 @@ Route::group(['prefix' => 'v1'], function () {
     });
 
     Route::group(['prefix' => 'discounts', 'controller' => DiscountController::class], function () {
-        Route::get('/', 'index');
+        Route::get('/', 'index')->name('discounts.index');
         Route::group(['prefix' => 'new'], function () {
-            Route::post('/sku', 'storeByProduct');
-            Route::post('/category', 'storeByCategory');
+            Route::post('/sku', 'storeByProduct')->name('discounts.storeByProduct');
+            Route::post('/category', 'storeByCategory')->name('discounts.storeByCategory');
         });
     });
 
