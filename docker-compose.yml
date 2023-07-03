@@ -1,20 +1,46 @@
 version: '3.1'
 
 services:
-  db:
-    image: mariadb:10.6
-    restart: always
-    environment:
+
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: mytheresa
+        command: bash -c "php artisan migrate && php artisan db:seed && php artisan serve --host=0.0.0.0 --port=8000"
+
+        environment:
+            APP_ENV: local
+            DB_HOST: db
+            DB_DATABASE: 'mytheresa'
+            DB_USERNAME: 'mytheresa'
+            DB_PASSWORD: 'pass'
+            DB_PORT: 3306
+            APP_URL: 'http://localhost:8000'
+
+        depends_on:
+            - db
+
+        restart: always
+
+        ports:
+          - 8000:8000
+
+
+    db:
+        image: mariadb:10.6.5
+        restart: always
+        environment:
             MYSQL_ROOT_PASSWORD: 'pass'
             MYSQL_ROOT_HOST: "%"
-            MYSQL_DATABASE: 'mytherese'
-            MYSQL_USER: 'mytherese'
+            MYSQL_DATABASE: 'mytheresa'
+            MYSQL_USER: 'mytheresa'
             MYSQL_PASSWORD: 'pass'
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-    ports:
-      - 3306:3306
+        ports:
+          - 3306:3306
 
-  phpmyadmin:
+    phpmyadmin:
         image: phpmyadmin/phpmyadmin
         restart: always
         ports:
@@ -22,6 +48,10 @@ services:
         environment:
             PMA_HOST: db
             PMA_PORT: 3306
-            PMA_USER: 'mytherese'
+            PMA_USER: 'mytheresa'
             PMA_PASSWORD: 'pass'
             PMA_ARBITRARY: 1
+
+        depends_on:
+            - db
+
