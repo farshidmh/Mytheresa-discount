@@ -15,7 +15,7 @@ class CategoryRepository implements Interface\CategoryRepositoryInterface
 
     public function find($id): Category
     {
-        return Category::find($id);
+        return Category::findOrFail($id);
     }
 
     public function create(array $data): Category
