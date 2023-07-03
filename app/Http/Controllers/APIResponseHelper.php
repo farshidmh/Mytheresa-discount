@@ -13,7 +13,7 @@ trait APIResponseHelper
      * @param $message
      * @return JsonResponse
      */
-    public function successResponse($result, $message = null): JsonResponse
+    public function successResponse($result, $message = null, $code = 200): JsonResponse
     {
         $response ['success'] = true;
 
@@ -25,7 +25,7 @@ trait APIResponseHelper
             $response['message'] = $message;
         }
 
-        return response()->json($response);
+        return response()->json($response,$code);
     }
 
 
