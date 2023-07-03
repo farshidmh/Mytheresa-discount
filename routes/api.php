@@ -27,10 +27,10 @@ Route::group(['prefix' => 'v1'], function () {
     });
 
     Route::group(['prefix' => 'products', 'controller' => ProductController::class], function () {
-        Route::get('/category/{categoryName}', 'getProductsByCategoryName');
-        Route::get('/priceLessThan/{price}', 'getProductsByPrice');
-        Route::get('/', 'getAllProducts');
-        Route::post('/', 'store');
+        Route::get('/category/{categoryName}', 'getProductsByCategoryName')->name('products.getProductsByCategoryName');
+        Route::get('/priceLessThan/{price}', 'getProductsByPrice')->name('products.priceLessThan');
+        Route::get('/', 'getAllProducts')->name('products.getAllProducts');
+        Route::post('/', 'store')->name('products.store');
     });
 
     Route::group(['prefix' => 'discounts', 'controller' => DiscountController::class], function () {
