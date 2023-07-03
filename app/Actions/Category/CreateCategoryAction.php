@@ -4,6 +4,7 @@ namespace App\Actions\Category;
 
 use App\Models\Category;
 use App\Repositories\Interface\CategoryRepositoryInterface;
+use App\Rules\CategoryRules;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
@@ -59,9 +60,9 @@ class CreateCategoryAction
      */
     protected function validateName(string $name): void
     {
-        $validator = Validator::make(['name' => $name], [
-            'name' => 'required|string|unique:categories,name'
-        ]);
+        $validator = Validator::make(['name' => $name],
+            CategoryRules::CATEGORY_CREATE_RULE
+        );
 
         if ($validator->fails()) {
             throw new ValidationException($validator);

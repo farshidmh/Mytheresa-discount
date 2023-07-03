@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\DiscountRules;
 use App\Traits\APIResponseHelper;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -28,10 +29,7 @@ class CreateProductDiscountRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'percentage' => 'required|numeric|min:0|max:100',
-            'product_sku' => 'required|exists:products,sku',
-        ];
+        return DiscountRules::PRODUCT_CREATE_RULE;
     }
 
     protected function failedValidation(Validator $validator)

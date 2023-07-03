@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CategoryRules;
 use App\Traits\APIResponseHelper;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -14,9 +15,7 @@ class CreateCategoryRequest extends FormRequest
 
     public function rules(): array
     {
-        return [
-            'name' => 'required|string|unique:categories,name',
-        ];
+        return CategoryRules::CATEGORY_CREATE_RULE;
     }
 
     public function authorize(): bool

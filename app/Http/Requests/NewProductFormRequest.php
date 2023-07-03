@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ProductRules;
 use App\Traits\APIResponseHelper;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -13,12 +14,7 @@ class NewProductFormRequest extends FormRequest
 
     public function rules(): array
     {
-        return [
-            'sku' => 'required|unique:products,sku',
-            'name' => 'required',
-            'category_name' => 'required|exists:categories,name',
-            'price' => 'required|numeric|min:0'
-        ];
+        return ProductRules::PRODUCT_CREATE_RULE;
     }
 
     public function authorize(): bool
