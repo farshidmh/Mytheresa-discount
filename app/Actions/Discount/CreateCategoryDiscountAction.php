@@ -4,7 +4,9 @@ namespace App\Actions\Discount;
 
 use App\Models\Discount;
 use App\Repositories\Interface\CategoryRepositoryInterface;
+use App\Rules\DiscountRules;
 use Exception;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class CreateCategoryDiscountAction
@@ -43,6 +45,15 @@ class CreateCategoryDiscountAction
      */
     public function execute(int $categoryID, string $percentage): Discount
     {
+
+        $validator = Validator::make(
+            ['category_id' => $categoryID, 'percentage' => $percentage],
+            DiscountRules::CATEGORY_CREATE_RULE
+        );
+
+        if ($validator->fails()) {
+            throw new Exception($validator->messages());
+        }
 
         try {
             return $this->categoryRepository->find($categoryID)->discounts()->firstOrCreate([

@@ -4,7 +4,9 @@ namespace App\Actions\Discount;
 
 use App\Models\Discount;
 use App\Repositories\Interface\ProductRepositoryInterface;
-use Exception;
+use App\Rules\DiscountRules;
+use Illuminate\Support\Facades\Validator;
+use PHPUnit\Util\Exception;
 
 /**
  * Class CreateProductDiscountAction
@@ -43,6 +45,15 @@ class CreateProductDiscountAction
      */
     public function execute(string $productSKU, string $percentage): Discount
     {
+
+        $validator = Validator::make(
+            ['product_sku' => $productSKU, 'percentage' => $percentage],
+            DiscountRules::PRODUCT_CREATE_RULE
+        );
+
+        if ($validator->fails()) {
+            throw new Exception($validator->messages());
+        }
 
         try {
             return $this->productRepository->findBySKU($productSKU)->discounts()->firstOrCreate([
